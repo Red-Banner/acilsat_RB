@@ -27,7 +27,7 @@ namespace acilsat_RB.Controllers
                 UserCookie["id"] = kullanici.id.ToString();
                 UserCookie["userName"] = kullanici.userName;
                 HttpContext.Response.Cookies.Add(UserCookie);
-
+                return Redirect("~/Users/UserProfile");
 
 
             }
