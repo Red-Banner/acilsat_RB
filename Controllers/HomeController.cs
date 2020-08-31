@@ -19,8 +19,20 @@ namespace acilsat_RB.Controllers
         [HttpPost]
         public ActionResult Login(string userName,string userPassword)
         {
+            var kullanici = db.Users.Where(x => x.userName == userName).SingleOrDefault();
+            HttpCookie UserCookie = new HttpCookie("ActiveUser");
+            if (kullanici != null)
+            {
+                UserCookie.Expires.AddHours(1);
+                UserCookie["id"] = kullanici.id.ToString();
+                UserCookie["userName"] = kullanici.userName;
+                HttpContext.Response.Cookies.Add(UserCookie);
 
-            return RedirectToAction("Index");
+
+
+            }
+
+                return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult Login()
