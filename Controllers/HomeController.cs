@@ -13,5 +13,19 @@ namespace acilsat_RB.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Login()
+        {
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Register()
+        {
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
