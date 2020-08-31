@@ -11,9 +11,11 @@ namespace acilsat_RB.Controllers
     {
         acilsatDB db = new acilsatDB();
         // GET: Home
+        [HttpGet]
         public ActionResult Index()
         {
-            return View();
+
+            return View(db.Products.ToList());
         }
 
         [HttpPost]
