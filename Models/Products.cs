@@ -27,5 +27,6 @@ namespace acilsat_RB.Models
 
         [Column(TypeName = "image")]
         public byte[] productImage2 { get; set; }
+        public int userId { get; set; }
     }
 }

@@ -18,6 +18,12 @@ namespace acilsat_RB.Controllers
         public ActionResult ProductDetail(int id)
         {
             Products product = db.Products.Find(id);
+            Users user = db.Users.Find(product.userId);
+            string nameSurname = user.name + " " + user.surName;
+            ViewData["categoryNo"] = product.categoryNo;
+            ViewData["nameSurname"] = nameSurname;
+            ViewData["userCity"] = user.userCity;
+            ViewData["userPhone"]= user.userPhone;
             return View(product);
         }
     }
