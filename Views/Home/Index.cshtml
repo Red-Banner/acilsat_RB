@@ -95,7 +95,21 @@
                                     </button>
                                 </div>
                             </div>
-                            @ViewData["registerError"]
+                            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                        
+                            @if (TempData["registerError1"] != null)
+                            {
+                                <script>
+                                
+                                    swal({
+                                        title: "İşlem Başarısız!",
+                                        text: "Girmiş Olduğunuz Kullanıcı Zaten Kayıtlı !",
+                                        icon: "error",
+                                        button: "Tamam",
+                                    });
+                                </script>
+                            }
+
                         </form>
 
 
@@ -176,6 +190,7 @@
                     </ul>
                 </div>
             </div>
+
         </div>
         @foreach (var item in Model)
         {
@@ -196,9 +211,10 @@
                     </div>
                 </div>
             </div>
+
         }
 
-
+    </div>
 </section>
 <!-- Featured Section End -->
 <!-- Banner Begin -->

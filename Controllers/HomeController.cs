@@ -9,12 +9,17 @@ namespace acilsat_RB.Controllers
 {
     public class HomeController : Controller
     {
+        string mesaj;
         acilsatDB db = new acilsatDB();
         // GET: Home
         [HttpGet]
         public ActionResult Index()
         {
-
+            if(TempData["registerError"]!= null)
+            {
+                TempData["registerError1"] = "Girdiğiniz Kullanıcı Adı Kullanılmaktadır.";
+            }
+           
             return View(db.Products.ToList());
         }
 
@@ -33,6 +38,8 @@ namespace acilsat_RB.Controllers
 
 
             }
+
+            
 
                 return RedirectToAction("Index");
         }
@@ -58,9 +65,11 @@ namespace acilsat_RB.Controllers
             }
             else
             {
-                ViewData["registerError"] = "Girdiğiniz Kullanıcı Adı Kullanılmaktadır.";
+                TempData["registerError"] = "Girmiş Olduğunuz Kullanıcı Zaten Kayıtlı";
+                return RedirectToAction("Index");
+
             }
-            return RedirectToAction("Index/#modal1");
+            return RedirectToAction("Index");
         }
 
 
