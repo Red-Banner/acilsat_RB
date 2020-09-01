@@ -9,7 +9,7 @@ namespace acilsat_RB.Controllers
 {
     public class HomeController : Controller
     {
-        string mesaj;
+       
         acilsatDB db = new acilsatDB();
         // GET: Home
         [HttpGet]
@@ -34,7 +34,9 @@ namespace acilsat_RB.Controllers
                 UserCookie["id"] = kullanici.id.ToString();
                 UserCookie["userName"] = kullanici.userName;
                 HttpContext.Response.Cookies.Add(UserCookie);
-                return Redirect("~/Users/UsersProfile");
+                TempData["userId"] = kullanici.id;
+                return Redirect("~/Users/UsersProfile/" +kullanici.id +"");
+                
 
 
             }
