@@ -27,33 +27,44 @@ namespace acilsat_RB.Controllers
             ViewData["userPhone"] = user.userPhone;
             return View(product);
         }
+        [HttpPost]
         public ActionResult ProductAdd([Bind(Include = "productName,categoryNo,productPrice,productDescription")] Products product)
         {
-            Random rnd = new Random();
-            if (ModelState.IsValid)
-            {
-                int counter = 0;
-                product.userId = Convert.ToInt32(TempData["userId"]);
-                int rndProductNo = rnd.Next(1000000, 9999999);
-                while (counter < 100)
+                Random rnd = new Random();
+                if (ModelState.IsValid)
                 {
-                    var productCheck = db.Products.Where(x => x.productNo == rndProductNo).SingleOrDefault();
-                    if (productCheck != null)
+                    int counter = 0;
+                product.userId = Convert.ToInt32(HttpContext.Request.Cookies["ActiveUser"]["id"]);
+                    int rndProductNo = rnd.Next(1000000, 9999999);
+                    while (counter < 100)
                     {
-                        rndProductNo = rnd.Next(1000000, 999999);
+                        var productCheck = db.Products.Where(x => x.productNo == rndProductNo).SingleOrDefault();
+                        if (productCheck != null)
+                        {
+                            rndProductNo = rnd.Next(100000, 999999);
+                        }
+                        else
+                        {
+                            product.productNo = rndProductNo;
+                            break;
+                        }
+                        counter++;
                     }
-                    else
-                    {
-                        product.productNo = rndProductNo;
-                        break;
-                    }
-                    counter++;
+                    db.Products.Add(product);
+                    db.SaveChanges();
+                    ModelState.Clear();
                 }
-                db.Products.Add(product);
-                db.SaveChanges();
-                ModelState.Clear();
+                return RedirectToAction("UsersProfile", "Users");
+           
+        }
+        [HttpGet]
+        public ActionResult ProductAdd()
+        {
+            if (HttpContext.Request.Cookies["ActiveUser"] == null)
+            {
+                return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("UserProfile","Users");
+                return View();
         }
     }
 }
