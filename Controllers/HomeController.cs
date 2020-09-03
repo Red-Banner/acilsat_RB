@@ -26,18 +26,22 @@ namespace acilsat_RB.Controllers
         [HttpPost]
         public ActionResult Login(string userName,string userPassword)
         {
-            var kullanici = db.Users.Where(x => x.userName == userName && x.userPassword==userPassword).SingleOrDefault();
+            var user = db.Users.Where(x => x.userName == userName && x.userPassword==userPassword).SingleOrDefault();
             //userPasswordu tekrardan sorguya ekledim çünkü yanlış şifre girsek bile userName dogruysa hesaba giriş yapıyordu.
             HttpCookie UserCookie = new HttpCookie("ActiveUser");
-            if (kullanici != null)
+            if (user != null)
             {
                 UserCookie.Expires.AddHours(1);
-                UserCookie["id"] = kullanici.id.ToString();
-                UserCookie["userName"] = kullanici.userName;
+                UserCookie["id"] = user.id.ToString();
+                UserCookie["userName"] = user.userName;
+                UserCookie["nameSurname"] = user.name +""+ user.surName;
                 HttpContext.Response.Cookies.Add(UserCookie);
-                TempData["userId"] = kullanici.id;
-                return Redirect("~/Users/UsersProfile/" +kullanici.id +"");
-                
+                TempData["userId"] = user.id;
+                string nameSurname = user.name + " " + user.surName;
+                TempData["nameSurname"] = nameSurname;
+                return Redirect("~/Users/UsersProfile/" +user.id +"");
+              
+
 
 
             }

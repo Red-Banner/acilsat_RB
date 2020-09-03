@@ -22,7 +22,7 @@ namespace acilsat_RB.Controllers
             Users user = db.Users.Find(product.userId);
             string nameSurname = user.name + " " + user.surName;
             ViewData["categoryNo"] = product.categoryNo;
-            ViewData["nameSurname"] = nameSurname;
+            TempData["nameSurname"] = nameSurname;
             ViewData["userCity"] = user.userCity;
             ViewData["userPhone"] = user.userPhone;
             return View(product);
