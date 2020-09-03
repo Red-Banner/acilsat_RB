@@ -14,6 +14,7 @@
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="~/Assets/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Assets/css/bootstrap-theme.min.css" type="text/css">
     <link rel="stylesheet" href="~/Assets/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="~/Assets/css/elegant-icons.css" type="text/css">
     <link rel="stylesheet" href="~/Assets/css/nice-select.css" type="text/css">
@@ -127,23 +128,27 @@
                         {
                             <div class="header__top__right__auth">
                                 <a href="~/Users/LoginRegister" data-toggle="modal" data-target="#modal1" class="btn  btn-radius btn-brd grd1" style="background: #7fad39 !important;"><i class="fa fa-user"></i> Giriş Yap</a>
-
                             </div>
+
                         }
                         else
                         {
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @{
-                                    string nameSurname = HttpContext.Current.Request.Cookies["ActiveUser"]["nameSurname"];
-                                }
-                                @nameSurname
 
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="@Url.Action("Profil","Kullanıcılar")">Hesap Ayarları</a>
-                                <a class="dropdown-item" href="@Url.Action("Cevaplar","Cevaplar")">Cevaplarım</a>
-                                <a class="dropdown-item" href="@Url.Action("Index","Home")">Sınava Gir</a>
-                                <a class="dropdown-item" href="@Url.Action("Cikis","Kullanıcılar")">Çıkış Yap</a>
+                            <div class="header__top__right__auth">
+                                <div class="dropdown">
+                                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        @{
+                                            string nameSurname = HttpContext.Current.Request.Cookies["ActiveUser"]["nameSurname"];
+                                        }
+                                        @nameSurname
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+
+                                    </div>
+                                </div>
                             </div>
                         }
 
@@ -235,8 +240,11 @@
 
     <!-- Footer Section End -->
     <!-- Js Plugins -->
+
     <script src="~/Assets/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Assets/js/bootstrap.bundle.min.js"></script>
     <script src="~/Assets/js/bootstrap.min.js"></script>
+
     <script src="~/Assets/js/jquery.nice-select.min.js"></script>
     <script src="~/Assets/js/jquery-ui.min.js"></script>
     <script src="~/Assets/js/jquery.slicknav.js"></script>
