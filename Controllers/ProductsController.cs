@@ -21,41 +21,42 @@ namespace acilsat_RB.Controllers
             Products product = db.Products.Find(id);
             Users user = db.Users.Find(product.userId);
             string nameSurname = user.name + " " + user.surName;
-            ViewData["categoryNo"] = product.categoryNo;
+            TempData["categoryNo"] = product.categoryNo;
             TempData["nameSurname"] = nameSurname;
-            ViewData["userCity"] = user.userCity;
-            ViewData["userPhone"] = user.userPhone;
-            return View(product);
+            TempData["userCity"] = user.userCity;
+            TempData["userPhone"] = user.userPhone;
+            TempData["productId"] = id;
+            return View(db.Products.Where(x => x.categoryNo == product.categoryNo).ToList());
         }
         [HttpPost]
         public ActionResult ProductAdd([Bind(Include = "productName,categoryNo,productPrice,productDescription")] Products product)
         {
-                Random rnd = new Random();
-                if (ModelState.IsValid)
-                {
-                    int counter = 0;
+            Random rnd = new Random();
+            if (ModelState.IsValid)
+            {
+                int counter = 0;
                 product.userId = Convert.ToInt32(HttpContext.Request.Cookies["ActiveUser"]["id"]);
-                    int rndProductNo = rnd.Next(1000000, 9999999);
-                    while (counter < 100)
+                int rndProductNo = rnd.Next(1000000, 9999999);
+                while (counter < 100)
+                {
+                    var productCheck = db.Products.Where(x => x.productNo == rndProductNo).SingleOrDefault();
+                    if (productCheck != null)
                     {
-                        var productCheck = db.Products.Where(x => x.productNo == rndProductNo).SingleOrDefault();
-                        if (productCheck != null)
-                        {
-                            rndProductNo = rnd.Next(100000, 999999);
-                        }
-                        else
-                        {
-                            product.productNo = rndProductNo;
-                            break;
-                        }
-                        counter++;
+                        rndProductNo = rnd.Next(100000, 999999);
                     }
-                    db.Products.Add(product);
-                    db.SaveChanges();
-                    ModelState.Clear();
+                    else
+                    {
+                        product.productNo = rndProductNo;
+                        break;
+                    }
+                    counter++;
                 }
-                return RedirectToAction("UsersProfile", "Users");
-           
+                db.Products.Add(product);
+                db.SaveChanges();
+                ModelState.Clear();
+            }
+            return RedirectToAction("Index", "Home");
+
         }
         [HttpGet]
         public ActionResult ProductAdd()
@@ -64,7 +65,13 @@ namespace acilsat_RB.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-                return View();
+            return View();
+        }
+        //Partial View çalışıyor fakat bi sayfaya bağlandığı zaman yine model çakışması yaşanıyor
+        public ActionResult ProductSellList()
+        {
+            int userId = Convert.ToInt32(HttpContext.Request.Cookies["ActiveUser"]["id"]);
+            return View(db.Products.Where(x => x.userId == userId).ToList());
         }
     }
 }
