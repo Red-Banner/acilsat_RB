@@ -9,24 +9,24 @@ namespace acilsat_RB.Controllers
 {
     public class HomeController : Controller
     {
-       
+
         acilsatDB db = new acilsatDB();
         // GET: Home
         [HttpGet]
         public ActionResult Index()
         {
-            if(TempData["registerError"]!= null)
+            if (TempData["registerError"] != null)
             {
                 TempData["registerError1"] = "Girdiğiniz Kullanıcı Adı Kullanılmaktadır.";
             }
-           
+
             return View(db.Products.ToList());
         }
 
         [HttpPost]
-        public ActionResult Login(string userName,string userPassword)
+        public ActionResult Login(string userName, string userPassword)
         {
-            var user = db.Users.Where(x => x.userName == userName && x.userPassword==userPassword).SingleOrDefault();
+            var user = db.Users.Where(x => x.userName == userName && x.userPassword == userPassword).SingleOrDefault();
             //userPasswordu tekrardan sorguya ekledim çünkü yanlış şifre girsek bile userName dogruysa hesaba giriş yapıyordu.
             HttpCookie UserCookie = new HttpCookie("ActiveUser");
             if (user != null)
@@ -34,21 +34,14 @@ namespace acilsat_RB.Controllers
                 UserCookie.Expires.AddHours(1);
                 UserCookie["id"] = user.id.ToString();
                 UserCookie["userName"] = user.userName;
-                UserCookie["nameSurname"] = user.name +""+ user.surName;
+                UserCookie["nameSurname"] = user.name + "" + user.surName;
                 HttpContext.Response.Cookies.Add(UserCookie);
                 TempData["userId"] = user.id;
                 string nameSurname = user.name + " " + user.surName;
                 TempData["nameSurname"] = nameSurname;
-                return Redirect("~/Users/UsersProfile/" +user.id +"");
-              
-
-
-
+                return Redirect("~/Users/UsersProfile/" + user.id + "");
             }
-
-            
-
-                return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public ActionResult Login()
