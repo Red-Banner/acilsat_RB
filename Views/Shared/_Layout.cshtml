@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="zxx">
+<html lang="tr">
 
 <head>
     <meta charset="UTF-8">
@@ -133,26 +133,27 @@
                         }
                         else
                         {
-
-                            <div class="header__top__right__auth">
-                                <div class="dropdown">
-                                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        @{
-                                            string nameSurname = HttpContext.Current.Request.Cookies["ActiveUser"]["nameSurname"];
-                                        }
-                                        @nameSurname
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-
-                                    </div>
-                                </div>
-                            </div>
-                        }
-
+                    <div class="header__top__right__auth header__menu" style="margin-top:-20px !important;">
+                        <ul>
+                            <li>
+                                <a class="btn btn-success" href="#">
+                                    @{
+                                        string nameSurname = HttpContext.Current.Request.Cookies["ActiveUser"]["nameSurname"];
+                                    }
+                                    @nameSurname
+                                </a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="./shop-details.html">Shop Details</a></li>
+                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                                    <li><a href="./checkout.html">Check Out</a></li>
+                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
+                                }
+
+                        </div>
                 </div>
             </div>
             <div class="humberger__open">
