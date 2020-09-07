@@ -73,7 +73,7 @@ namespace acilsat_RB.Controllers
             int userId = Convert.ToInt32(HttpContext.Request.Cookies["ActiveUser"]["id"]);
             return View(db.Products.Where(x => x.userId == userId).ToList());
         }
-        public ActionResult CategoryPage()
+        public ActionResult CategoryPage(int? categoryId)
         {
             return View();
         }
