@@ -61,7 +61,7 @@
                 <div class="product__details__text">
                     <h3>@Html.Label(selectedProduct.productName)</h3>
 
-                    <div class="product__details__price">@Html.Label(selectedProduct.productPrice.ToString())</div>
+                    <div class="product__details__price">@Html.Label(selectedProduct.productPrice.ToString()) ₺</div>
                     <ul>
                         <li><b>Satıcı:</b> <span>@TempData["nameSurname"]</span></li>
                         <li><b>Satışta Olduğu Şehir:</b> <span>@TempData["userCity"]</span></li>
@@ -106,13 +106,13 @@
                 </div>
             </div>
         </div>
-        @foreach (var item in Model)
-        {
-            if(item.Id==productId)
+        <div class="row">
+            @foreach (var item in Model)
             {
-                continue;
-            }
-            <div class="row">
+                if (item.Id == productId)
+                {
+                    continue;
+                }
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">
                         <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
@@ -124,13 +124,12 @@
                         </div>
                         <div class="product__item__text">
                             <h6><a href="#">@Html.DisplayFor(modelItem => item.productName)</a></h6>
-                            <h5>@Html.DisplayFor(modelitem => item.productPrice)</h5>
+                            <h5>@Html.DisplayFor(modelitem => item.productPrice) ₺</h5>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
-
+            }
+        </div>
     </div>
 </section>
 <!-- Related Product Section End -->
