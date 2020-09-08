@@ -24,9 +24,7 @@ namespace acilsat_RB.Controllers
             else
             {
                 Users user = db.Users.Find(id);
-                TempData["userId"] = user.id;
-                TempData["name"] = user.name;
-                TempData["surname"] = user.surName;
+               
                     
 
 

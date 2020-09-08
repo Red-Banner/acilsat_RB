@@ -40,9 +40,6 @@ namespace acilsat_RB.Controllers
                 UserCookie["userName"] = user.userName;
                 UserCookie["nameSurname"] = user.name + "" + user.surName;
                 HttpContext.Response.Cookies.Add(UserCookie);
-                TempData["userId"] = user.id;
-                string nameSurname = user.name + " " + user.surName;
-                TempData["nameSurname"] = nameSurname;
                 return Redirect("~/Users/UsersProfile/" + user.id + "");
             }
             return RedirectToAction("Index");
