@@ -25,9 +25,6 @@ namespace acilsat_RB.Controllers
             {
                 Users user = db.Users.Find(id);
                
-                    
-
-
                 return View(user);
             }
          
@@ -39,5 +36,16 @@ namespace acilsat_RB.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        public ActionResult Update(int id ,Users info)
+        {
+            var user = db.Users.Find(id);
+            user.eMail = info.eMail;
+            user.userPhone = info.userPhone;
+            user.userCity = info.userCity;
+            db.SaveChanges();
+            return Redirect("~/Users/UsersProfile/" + user.id + "");
+        }
+
+
     }
 }

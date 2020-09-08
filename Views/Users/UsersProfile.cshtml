@@ -55,11 +55,11 @@
                             <hr />
                             <div class="form" data-aos="fade-up">
 
-                                <form class="form-validate form-horizontal" id="feedback_form" method="post" action="/Update/@HttpContext.Current.Request.Cookies["ActiveUser"]["id"]">
+                                <form class="form-validate form-horizontal" id="feedback_form" method="post" action="/Users/Update/@HttpContext.Current.Request.Cookies["ActiveUser"]["id"]">
                                     <div class="form-group ">
                                         <label for="cname" class="control-label col-lg-3">E-Mail <span class="required">*</span></label>
                                         <div class="col-lg-9">
-                                            @Html.TextBoxFor(x => x.eMail, new { @class = "form-control" })
+                                            @Html.TextBoxFor(x => x.eMail, new {@name = "" , @class = "form-control" })
                                         </div>
                                     </div>
                                     <div class="form-group ">
