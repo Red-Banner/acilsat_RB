@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
-
+using acilsat_RB.ViewModels;
 namespace acilsat_RB.Controllers
 {
     public class ProductsController : Controller
@@ -73,9 +73,17 @@ namespace acilsat_RB.Controllers
             int userId = Convert.ToInt32(HttpContext.Request.Cookies["ActiveUser"]["id"]);
             return View(db.Products.Where(x => x.userId == userId).ToList());
         }
-        public ActionResult CategoryPage(int? categoryId)
+        [HttpGet]
+        public ActionResult CategoryPage(int? categoryNo)
         {
-            return View();
+            ProductCategoryViewModel prodCatViewModel = new ProductCategoryViewModel();
+                prodCatViewModel.Categories = db.Categories.ToList();
+                prodCatViewModel.Products = db.Products.ToList();
+            if (categoryNo != null)
+            {
+                return View(prodCatViewModel.Products.Where(x => x.categoryNo == categoryNo).ToList());
+            }
+            return View(prodCatViewModel);
         }
     }
 }
