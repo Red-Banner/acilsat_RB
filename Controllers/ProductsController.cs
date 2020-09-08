@@ -68,11 +68,7 @@ namespace acilsat_RB.Controllers
             return View();
         }
         //Partial View çalışıyor fakat bi sayfaya bağlandığı zaman yine model çakışması yaşanıyor
-        public ActionResult ProductSellList()
-        {
-            int userId = Convert.ToInt32(HttpContext.Request.Cookies["ActiveUser"]["id"]);
-            return View(db.Products.Where(x => x.userId == userId).ToList());
-        }
+       
         [HttpGet]
         public ActionResult CategoryPage(int? id)
         {

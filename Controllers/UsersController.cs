@@ -42,10 +42,17 @@ namespace acilsat_RB.Controllers
             user.eMail = info.eMail;
             user.userPhone = info.userPhone;
             user.userCity = info.userCity;
+           
             db.SaveChanges();
             return Redirect("~/Users/UsersProfile/" + user.id + "");
         }
 
+        public ActionResult UserSellList(int id)
+        {
+            var user = db.Users.Find(id);
+            List<Products> sellitems  = db.Products.Where(x => x.userId == user.id).ToList();
 
+            return PartialView("UserSellList",sellitems);
+        }
     }
 }
