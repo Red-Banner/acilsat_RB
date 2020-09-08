@@ -74,14 +74,16 @@ namespace acilsat_RB.Controllers
             return View(db.Products.Where(x => x.userId == userId).ToList());
         }
         [HttpGet]
-        public ActionResult CategoryPage(int? categoryNo)
+        public ActionResult CategoryPage(int? id)
         {
             ProductCategoryViewModel prodCatViewModel = new ProductCategoryViewModel();
                 prodCatViewModel.Categories = db.Categories.ToList();
                 prodCatViewModel.Products = db.Products.ToList();
-            if (categoryNo != null)
+            if (id != null)
             {
-                return View(prodCatViewModel.Products.Where(x => x.categoryNo == categoryNo).ToList());
+                prodCatViewModel.Products = prodCatViewModel.Products.Where(x => x.categoryNo == id).ToList();
+                prodCatViewModel.Categories = db.Categories.ToList();
+                return View(prodCatViewModel);
             }
             return View(prodCatViewModel);
         }
