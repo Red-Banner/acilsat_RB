@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using acilsat_RB.Models;
 using System.Data.Entity;
+using acilsat_RB.ViewModels;
+
 namespace acilsat_RB.Controllers
 {
     public class HomeController : Controller
@@ -19,8 +21,10 @@ namespace acilsat_RB.Controllers
             {
                 TempData["registerError1"] = "Girdiğiniz Kullanıcı Adı Kullanılmaktadır.";
             }
-
-            return View(db.Products.ToList());
+            ProductCategoryViewModel prodCatViewModel = new ProductCategoryViewModel();
+            prodCatViewModel.Categories = db.Categories.ToList();
+            prodCatViewModel.Products = db.Products.ToList();
+            return View(prodCatViewModel);
         }
 
         [HttpPost]
