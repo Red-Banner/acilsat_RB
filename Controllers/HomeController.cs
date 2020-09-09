@@ -40,7 +40,7 @@ namespace acilsat_RB.Controllers
                 UserCookie["userName"] = user.userName;
                 UserCookie["nameSurname"] = user.name + "" + user.surName;
                 HttpContext.Response.Cookies.Add(UserCookie);
-                return Redirect("~/Users/UsersProfile/" + user.id + "");
+                return RedirectToAction("UserProfile","Users");
             }
             return RedirectToAction("Index");
         }

@@ -13,7 +13,7 @@ namespace acilsat_RB.Controllers
         // GET: Users
         [HttpGet]
         
-        public ActionResult UsersProfile(int? id)
+        public ActionResult UsersProfile()
         {
             if (HttpContext.Request.Cookies["ActiveUser"] == null)
             {
@@ -23,6 +23,7 @@ namespace acilsat_RB.Controllers
             }
             else
             {
+                int id = Convert.ToInt32(HttpContext.Request.Cookies["ActiveUser"]["id"]);
                 Users user = db.Users.Find(id);
                
                 return View(user);
@@ -42,13 +43,14 @@ namespace acilsat_RB.Controllers
             user.eMail = info.eMail;
             user.userPhone = info.userPhone;
             user.userCity = info.userCity;
-           
             db.SaveChanges();
+            //Çereze çevirmek lazım
             return Redirect("~/Users/UsersProfile/" + user.id + "");
         }
 
-        public ActionResult UserSellList(int id)
+        public ActionResult UserSellList()
         {
+            int id = Convert.ToInt32(HttpContext.Request.Cookies["ActiveUser"]["id"]);
             var user = db.Users.Find(id);
             List<Products> sellitems  = db.Products.Where(x => x.userId == user.id).ToList();
 
